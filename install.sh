@@ -1,16 +1,8 @@
 #!/bin/bash
 
-sh -c "$(curl -fsLS get.chezmoi.io)"
+git config --global alias.co checkout
+git config --global alias.s status
+git config --global alias.p pull
+git config --global alias.pwf push --force-with-lease
 
-variables=( email )
-echo 'Making sure these variables are set:'
-echo $variables
-for i in "${variables[@]}"; do
-  ./bin/chezmoi data | grep $i
-  if [ $? == 1 ]; then
-    echo "Variable $i is not set in .chezmoidata.yaml!"
-    exit 1
-  fi
-done
-
-./bin/chezmoi init --apply --verbose https://github.com/mgrijalva/dotfiles.git
+mv .vimrc ~/.vimrc
